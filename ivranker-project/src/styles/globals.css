@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --iv-teal: #0d9488;
+  --iv-teal-dark: #0f766e;
+  --iv-teal-light: #ccfbf1;
+  --iv-navy: #0f172a;
+  --iv-slate: #334155;
+  --iv-gray: #64748b;
+  --iv-light: #f8fafc;
+  --iv-border: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--iv-slate);
+  background: var(--iv-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* FAQ accordion */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.faq-item.active .faq-answer {
+  max-height: 400px;
+  padding-top: 12px;
+}
+
+/* Provider card hover */
+.provider-card {
+  transition: box-shadow 0.25s, border-color 0.25s, transform 0.15s;
+}
+.provider-card:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/* City card hover */
+.city-card {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.city-card:hover {
+  border-color: var(--iv-teal);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* Nearby link hover */
+.nearby-btn {
+  transition: border-color 0.2s, color 0.2s;
+}
+.nearby-btn:hover {
+  border-color: var(--iv-teal);
+  color: var(--iv-teal);
+}
+
+/* Ad zone */
+.ad-zone {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
