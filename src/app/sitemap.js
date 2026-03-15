@@ -1,4 +1,5 @@
 import { cities, ivTypes } from '@/data/sites';
+import { blogPosts } from '@/data/blog';
 
 export default function sitemap() {
   const baseUrl = 'https://ivranker.com';
@@ -13,6 +14,13 @@ export default function sitemap() {
   const treatmentPages = ivTypes.map(t => ({
     url: `${baseUrl}/treatments/${t.slug}`,
     lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  const blogPages = blogPosts.map(p => ({
+    url: `${baseUrl}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
     changeFrequency: 'monthly',
     priority: 0.7,
   }));
@@ -38,6 +46,7 @@ export default function sitemap() {
     },
     ...cityPages,
     ...treatmentPages,
+    ...blogPages,
     {
       url: `${baseUrl}/list-your-business`,
       lastModified: new Date(),
