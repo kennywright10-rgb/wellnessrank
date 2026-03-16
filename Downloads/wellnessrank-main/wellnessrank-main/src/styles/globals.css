@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  --iv-forest:      #1A3829;
+  --iv-sage:        #2A7A52;
+  --iv-sage-light:  #D6EDE3;
+  --iv-cream:       #FAF8F5;
+  --iv-warm-gray:   #78716C;
+  --iv-dark:        #1C1917;
+  --iv-border:      #E7E3DC;
+  --iv-gold:        #B45309;
+  --iv-gold-light:  #FEF3C7;
+  /* legacy aliases so old Tailwind refs still resolve */
+  --iv-teal:        #2A7A52;
+  --iv-teal-dark:   #1A3829;
+  --iv-teal-light:  #D6EDE3;
+  --iv-navy:        #1A3829;
+  --iv-slate:       #44403C;
+  --iv-gray:        #78716C;
+  --iv-light:       #FAF8F5;
+  --iv-border-old:  #E7E3DC;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #44403C;
+  background: #FAF8F5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── FAQ accordion ── */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding-top: 10px;
+}
+
+/* ── Provider card ── */
+.provider-card {
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+}
+.provider-card:hover {
+  box-shadow: 0 12px 32px rgba(26,56,41,0.10);
+  transform: translateY(-2px);
+}
+
+/* ── City card ── */
+.city-card {
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.city-card:hover {
+  border-color: var(--iv-sage);
+  box-shadow: 0 8px 24px rgba(26,56,41,0.08);
+  transform: translateY(-1px);
+}
+
+/* ── Nearby city buttons ── */
+.nearby-btn {
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.nearby-btn:hover {
+  background: var(--iv-sage-light);
+  border-color: var(--iv-sage);
+  color: var(--iv-forest);
+}
+
+/* ── Ad zone — understated ── */
+.ad-zone {
+  background: #F5F1EB;
+  border: 1px solid var(--iv-border);
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #A8A29E;
+}
+
+/* ── Blog card ── */
+.blog-card {
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+}
+.blog-card:hover {
+  box-shadow: 0 8px 24px rgba(26,56,41,0.08);
+  border-color: var(--iv-sage);
+  transform: translateY(-1px);
+}
