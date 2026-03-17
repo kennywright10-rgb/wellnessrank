@@ -2,76 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
 
 :root {
-  --iv-teal: #0d9488;
-  --iv-teal-dark: #0f766e;
-  --iv-teal-light: #ccfbf1;
-  --iv-navy: #0f172a;
-  --iv-slate: #334155;
-  --iv-gray: #64748b;
-  --iv-light: #f8fafc;
-  --iv-border: #e2e8f0;
+  --iv-forest:      #1A3829;
+  --iv-sage:        #2A7A52;
+  --iv-sage-light:  #D6EDE3;
+  --iv-cream:       #FAF8F5;
+  --iv-warm-gray:   #78716C;
+  --iv-dark:        #1C1917;
+  --iv-border:      #E7E3DC;
+  --iv-gold:        #B45309;
+  --iv-gold-light:  #FEF3C7;
+  /* legacy aliases so old Tailwind refs still resolve */
+  --iv-teal:        #2A7A52;
+  --iv-teal-dark:   #1A3829;
+  --iv-teal-light:  #D6EDE3;
+  --iv-navy:        #1A3829;
+  --iv-slate:       #44403C;
+  --iv-gray:        #78716C;
+  --iv-light:       #FAF8F5;
+  --iv-border-old:  #E7E3DC;
 }
 
 * { box-sizing: border-box; }
 
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--iv-slate);
-  background: var(--iv-light);
+  color: #44403C;
+  background: #FAF8F5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* FAQ accordion */
+/* ── FAQ accordion ── */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  transition: max-height 0.35s ease, padding 0.35s ease;
 }
 .faq-item.active .faq-answer {
-  max-height: 400px;
-  padding-top: 12px;
+  max-height: 500px;
+  padding-top: 10px;
 }
 
-/* Provider card hover */
+/* ── Provider card ── */
 .provider-card {
-  transition: box-shadow 0.25s, border-color 0.25s, transform 0.15s;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
 }
 .provider-card:hover {
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 32px rgba(26,56,41,0.10);
   transform: translateY(-2px);
 }
 
-/* City card hover */
+/* ── City card ── */
 .city-card {
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 .city-card:hover {
-  border-color: var(--iv-teal);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  border-color: var(--iv-sage);
+  box-shadow: 0 8px 24px rgba(26,56,41,0.08);
+  transform: translateY(-1px);
 }
 
-/* Nearby link hover */
+/* ── Nearby city buttons ── */
 .nearby-btn {
-  transition: border-color 0.2s, color 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 .nearby-btn:hover {
-  border-color: var(--iv-teal);
-  color: var(--iv-teal);
+  background: var(--iv-sage-light);
+  border-color: var(--iv-sage);
+  color: var(--iv-forest);
 }
 
-/* Ad zone */
+/* ── Ad zone — understated ── */
 .ad-zone {
-  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-  border: 1px dashed #cbd5e1;
-  border-radius: 8px;
+  background: #F5F1EB;
+  border: 1px solid var(--iv-border);
+  border-radius: 10px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  color: #A8A29E;
+}
+
+/* ── Blog card ── */
+.blog-card {
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+}
+.blog-card:hover {
+  box-shadow: 0 8px 24px rgba(26,56,41,0.08);
+  border-color: var(--iv-sage);
+  transform: translateY(-1px);
 }

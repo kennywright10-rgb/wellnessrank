@@ -15,21 +15,29 @@ export default function BlogIndex() {
 
   return (
     <>
-      <header className="bg-gradient-to-br from-iv-navy via-slate-800 to-iv-teal-dark py-16 px-6 text-white">
+      <header style={{ background: 'linear-gradient(135deg, #1A3829 0%, #1F4A34 55%, #2A5A3F 100%)', padding: '3.5rem 1.5rem', color: '#fff' }}>
         <div className="max-w-[1200px] mx-auto">
-          <div className="font-mono text-[0.72rem] text-teal-300 uppercase tracking-[3px] mb-3">IV RANKER BLOG</div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">IV Therapy Insights & Guides</h1>
-          <p className="text-white/60 max-w-[560px] leading-relaxed">Expert articles on treatments, costs, provider selection, and local tips for North Atlanta&apos;s IV therapy scene.</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+            <span style={{ display: 'inline-block', width: '16px', height: '2px', background: '#6ECA9B', borderRadius: '2px' }} />
+            <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#6ECA9B' }}>Journal</span>
+          </div>
+          <h1 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: '0.75rem', color: '#fff' }}>
+            IV Therapy Insights &amp; Guides
+          </h1>
+          <p style={{ color: 'rgba(255,255,255,0.58)', maxWidth: '520px', lineHeight: 1.65, fontSize: '0.95rem' }}>
+            Expert articles on treatments, costs, provider selection, and local tips for North Atlanta&apos;s IV therapy scene.
+          </p>
         </div>
       </header>
 
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         {/* Featured Post */}
-        <Link href={`/blog/${featured.slug}`} className="block bg-white border border-slate-200 rounded-xl p-8 mb-8 no-underline hover:shadow-lg transition-shadow">
-          <span className="text-xs font-semibold text-iv-teal bg-iv-teal-light px-3 py-1 rounded-full">{featured.category}</span>
-          <h2 className="text-2xl font-extrabold text-iv-navy mt-3 mb-2">{featured.title}</h2>
-          <p className="text-iv-gray leading-relaxed mb-3">{featured.excerpt}</p>
-          <div className="text-xs text-slate-400">{featured.date} · {featured.readTime}</div>
+        <Link href={`/blog/${featured.slug}`} className="blog-card block no-underline rounded-xl p-8 mb-8"
+          style={{ background: '#fff', border: '1px solid #E7E3DC' }}>
+          <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#1A3829', background: '#D6EDE3', padding: '3px 10px', borderRadius: '999px' }}>{featured.category}</span>
+          <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: '1.6rem', fontWeight: 400, color: '#1A3829', marginTop: '0.85rem', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>{featured.title}</h2>
+          <p style={{ color: '#78716C', lineHeight: 1.65, marginBottom: '0.85rem', fontSize: '0.92rem' }}>{featured.excerpt}</p>
+          <div style={{ fontSize: '0.76rem', color: '#A8A29E' }}>{featured.date} · {featured.readTime}</div>
         </Link>
 
         <AdZone slot="homeLeaderboard" format="leaderboard" className="mb-8" />
@@ -38,11 +46,12 @@ export default function BlogIndex() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {rest.map((post, i) => (
             <div key={post.slug}>
-              <Link href={`/blog/${post.slug}`} className="block bg-white border border-slate-200 rounded-xl p-6 no-underline hover:shadow-md hover:border-iv-teal transition-all h-full">
-                <span className="text-[0.7rem] font-semibold text-iv-teal bg-iv-teal-light px-2.5 py-0.5 rounded-full">{post.category}</span>
-                <h3 className="text-base font-bold text-iv-navy mt-2.5 mb-2 leading-snug">{post.title}</h3>
-                <p className="text-sm text-iv-gray leading-relaxed mb-3 line-clamp-3">{post.excerpt}</p>
-                <div className="text-xs text-slate-400">{post.date} · {post.readTime}</div>
+              <Link href={`/blog/${post.slug}`} className="blog-card block no-underline rounded-xl p-6 h-full"
+                style={{ background: '#fff', border: '1px solid #E7E3DC' }}>
+                <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#1A3829', background: '#D6EDE3', padding: '2px 9px', borderRadius: '999px' }}>{post.category}</span>
+                <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1C1917', marginTop: '0.65rem', marginBottom: '0.4rem', lineHeight: 1.35 }}>{post.title}</h3>
+                <p style={{ fontSize: '0.84rem', color: '#78716C', lineHeight: 1.6, marginBottom: '0.75rem' }} className="line-clamp-3">{post.excerpt}</p>
+                <div style={{ fontSize: '0.74rem', color: '#A8A29E' }}>{post.date} · {post.readTime}</div>
               </Link>
               {/* Ad after 3rd post */}
               {i === 2 && <div className="mt-5 col-span-full"><AdZone slot="blogInArticle" format="in-article" /></div>}

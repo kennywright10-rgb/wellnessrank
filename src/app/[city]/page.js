@@ -5,10 +5,10 @@ import ProviderCard from '@/components/ProviderCard';
 import AdZone from '@/components/AdZone';
 import FaqAccordion from '@/components/FaqAccordion';
 
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────────
 // STATIC GENERATION — builds all city pages at deploy time
 // Add a new city to data/sites.js → redeploy → new page live
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
   return cities.map(c => ({ city: c.slug }));
 }
@@ -19,7 +19,6 @@ export async function generateMetadata({ params }) {
 
   const providerCount = getProvidersByCity(city.slug).length;
 
-  // FAQPage schema
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -30,7 +29,6 @@ export async function generateMetadata({ params }) {
     })),
   };
 
-  // BreadcrumbList schema
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -55,6 +53,30 @@ export async function generateMetadata({ params }) {
       'script:ld+json:breadcrumb': JSON.stringify(breadcrumbSchema),
     },
   };
+}
+
+// Section heading helper — replaces the mono eyebrow label pattern
+function SectionHead({ label, title }) {
+  return (
+    <div style={{ marginBottom: '1.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '6px' }}>
+        <span style={{ display: 'inline-block', width: '18px', height: '2px', background: '#2A7A52', borderRadius: '2px' }} />
+        <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#2A7A52' }}>
+          {label}
+        </span>
+      </div>
+      <h2 style={{
+        fontFamily: "'DM Serif Display', Georgia, serif",
+        fontSize: 'clamp(1.4rem, 2.8vw, 2rem)',
+        color: '#1A3829',
+        fontWeight: 400,
+        letterSpacing: '-0.01em',
+        margin: 0,
+      }}>
+        {title}
+      </h2>
+    </div>
+  );
 }
 
 export default function CityPage({ params }) {
@@ -100,31 +122,77 @@ export default function CityPage({ params }) {
       />
 
       {/* ── HERO ── */}
-      <header className="bg-gradient-to-br from-iv-navy via-slate-800 to-iv-teal-dark py-20 px-6 text-white relative overflow-hidden">
-        <div className="absolute top-[-50%] right-[-15%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(13,148,136,0.18)_0%,transparent_70%)] pointer-events-none" />
-        <div className="max-w-[1200px] mx-auto relative">
-          <div className="text-sm text-white/45 mb-4">
-            <Link href="/" className="text-white/60 hover:text-white/90 no-underline">Home</Link>
-            {' → '}
-            <span className="text-white/60">Georgia</span>
-            {' → '}{city.name}
+      <header
+        style={{
+          background: 'linear-gradient(135deg, #1A3829 0%, #1F4A34 55%, #2A5A3F 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: '4rem 1.5rem 3.5rem',
+          color: '#fff',
+        }}
+      >
+        {/* Amber glow */}
+        <div style={{
+          position: 'absolute', bottom: '-60px', right: '10%',
+          width: '400px', height: '300px',
+          background: 'radial-gradient(ellipse, rgba(180,83,9,0.12) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+
+        <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
+          {/* Breadcrumb */}
+          <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)', marginBottom: '1.25rem' }}>
+            <Link href="/" style={{ color: 'rgba(255,255,255,0.55)', textDecoration: 'none' }}>Home</Link>
+            <span style={{ margin: '0 6px', opacity: 0.3 }}>›</span>
+            <span style={{ color: 'rgba(255,255,255,0.45)' }}>Georgia</span>
+            <span style={{ margin: '0 6px', opacity: 0.3 }}>›</span>
+            <span style={{ color: 'rgba(255,255,255,0.7)' }}>{city.name}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 tracking-tight">
-            Best IV Therapy in <span className="text-teal-300">{city.name}</span>, {city.state}
+
+          {/* Heading */}
+          <h1 style={{
+            fontFamily: "'DM Serif Display', Georgia, serif",
+            fontSize: 'clamp(2rem, 5vw, 3.2rem)',
+            fontWeight: 400,
+            lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+            marginBottom: '1rem',
+            color: '#fff',
+          }}>
+            Best IV Therapy in{' '}
+            <span style={{ color: '#6ECA9B', fontStyle: 'italic' }}>{city.name}</span>
+            {', '}{city.state}
           </h1>
-          <p className="text-lg text-white/65 max-w-[600px] mb-7 leading-relaxed">
-            Compare {cityProviders.length}+ vetted IV therapy providers in {city.name}. Find the right treatment at the right price.
+
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1rem', maxWidth: '560px', marginBottom: '2rem', lineHeight: 1.65 }}>
+            Compare {cityProviders.length}+ vetted IV therapy providers in {city.name}. Real reviews, honest pricing.
           </p>
-          <div className="flex gap-9 flex-wrap">
+
+          {/* Stats — clean, no mono font */}
+          <div style={{ display: 'flex', gap: '0', flexWrap: 'wrap' }}>
             {[
-              [cityProviders.length + '+', 'Providers'],
-              ['6', 'Treatments'],
-              ['$100+', 'Starting'],
-              [city.zipCodes.length, 'ZIP Codes'],
-            ].map(([num, label]) => (
-              <div key={label}>
-                <div className="font-mono text-2xl font-bold text-teal-300">{num}</div>
-                <div className="text-[0.72rem] text-white/40 uppercase tracking-wider">{label}</div>
+              { num: cityProviders.length + '+', label: 'Providers' },
+              { num: '6',                         label: 'Treatments' },
+              { num: '$100+',                     label: 'Starting price' },
+              { num: city.zipCodes.length,        label: 'ZIP codes' },
+            ].map(({ num, label }, i) => (
+              <div key={label} style={{
+                paddingLeft: i === 0 ? 0 : '1.75rem',
+                marginLeft: i === 0 ? 0 : '1.75rem',
+                borderLeft: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.12)',
+              }}>
+                <div style={{
+                  fontFamily: "'DM Serif Display', Georgia, serif",
+                  fontSize: '1.75rem',
+                  color: '#6ECA9B',
+                  lineHeight: 1,
+                  marginBottom: '4px',
+                }}>
+                  {num}
+                </div>
+                <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500, letterSpacing: '0.03em' }}>
+                  {label}
+                </div>
               </div>
             ))}
           </div>
@@ -132,72 +200,101 @@ export default function CityPage({ params }) {
       </header>
 
       <div className="max-w-[1200px] mx-auto px-6 py-12">
-        {/* Ad: Leaderboard Top */}
         <AdZone slot="leaderboardTop" format="leaderboard" />
 
         {/* ── PROVIDERS ── */}
         <section className="mt-12" id="providers">
-          <div className="font-mono text-[0.72rem] text-iv-teal uppercase tracking-widest mb-1.5">PROVIDERS</div>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-iv-navy mb-2.5 tracking-tight">IV Therapy Clinics in {city.name}</h2>
-          <p className="text-iv-gray max-w-[680px] mb-8">
-            Verified providers ranked by rating, services, and patient reviews. Sponsored listings support IV Ranker and appear first.
+          <SectionHead label="Providers" title={`IV Therapy Clinics in ${city.name}`} />
+          <p style={{ color: '#78716C', maxWidth: '660px', marginBottom: '2rem', fontSize: '0.92rem', lineHeight: 1.65, marginTop: '-0.75rem' }}>
+            Verified providers ranked by rating, services, and patient reviews. Sponsored listings appear first.
           </p>
           <div className="flex flex-col gap-4">
             {cityProviders.map((p, i) => (
               <div key={p.id}>
                 <ProviderCard provider={p} rank={i + 1} />
-                {/* Ad after 3rd listing */}
                 {i === 2 && <div className="mt-4"><AdZone slot="midListing" format="in-article" /></div>}
               </div>
             ))}
           </div>
         </section>
 
-        {/* Ad: Mid-page */}
         <div className="my-12"><AdZone slot="midPage" format="horizontal" /></div>
 
         {/* ── IV TYPES ── */}
         <section>
-          <div className="font-mono text-[0.72rem] text-iv-teal uppercase tracking-widest mb-1.5">TREATMENTS</div>
-          <h2 className="text-2xl font-extrabold text-iv-navy mb-2.5">IV Therapy Options in {city.name}</h2>
-          <p className="text-iv-gray max-w-[680px] mb-8">Popular treatments available from {city.name} providers.</p>
+          <SectionHead label="Treatments" title={`IV Therapy Options in ${city.name}`} />
+          <p style={{ color: '#78716C', maxWidth: '660px', marginBottom: '2rem', fontSize: '0.92rem', lineHeight: 1.65, marginTop: '-0.75rem' }}>
+            Popular treatments available from {city.name} providers.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {ivTypes.map(t => (
-              <div key={t.slug} className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                <span className="text-3xl block mb-2">{t.icon}</span>
-                <div className="font-bold text-iv-navy mb-1.5">{t.name}</div>
-                <div className="text-sm text-iv-gray leading-relaxed">{t.description.slice(0, 160)}...</div>
+              <div key={t.slug} style={{
+                background: '#fff',
+                border: '1px solid #E7E3DC',
+                borderRadius: '12px',
+                padding: '1.4rem 1.5rem',
+                transition: 'box-shadow 0.2s, transform 0.15s',
+              }}
+                className="hover:shadow-md"
+              >
+                <span style={{ fontSize: '1.8rem', display: 'block', marginBottom: '10px' }}>{t.icon}</span>
+                <div style={{ fontWeight: 700, color: '#1A3829', marginBottom: '6px', fontSize: '0.95rem' }}>{t.name}</div>
+                <div style={{ fontSize: '0.82rem', color: '#78716C', lineHeight: 1.6 }}>{t.description.slice(0, 160)}…</div>
               </div>
             ))}
           </div>
         </section>
 
         {/* ── ABOUT + SIDEBAR ── */}
-        <section className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 mt-14">
+        <section className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 mt-14">
           <div>
-            <div className="font-mono text-[0.72rem] text-iv-teal uppercase tracking-widest mb-1.5">LOCAL GUIDE</div>
-            <h2 className="text-xl font-extrabold text-iv-navy mb-4">IV Therapy in {city.name}: What You Need to Know</h2>
-            <p className="text-iv-slate leading-relaxed mb-3.5">{city.description}</p>
-            <p className="text-iv-slate leading-relaxed mb-3.5">{city.whyIV}</p>
-            <p className="text-iv-slate leading-relaxed">
+            <SectionHead label="Local Guide" title={`IV Therapy in ${city.name}: What You Need to Know`} />
+            <p style={{ color: '#44403C', lineHeight: 1.75, marginBottom: '1rem', fontSize: '0.93rem' }}>{city.description}</p>
+            <p style={{ color: '#44403C', lineHeight: 1.75, marginBottom: '1rem', fontSize: '0.93rem' }}>{city.whyIV}</p>
+            <p style={{ color: '#44403C', lineHeight: 1.75, fontSize: '0.93rem' }}>
               IV therapy in {city.name} is available through both brick-and-mortar clinics and mobile services.
               Pricing starts around $100 for basic hydration and ranges to $500+ for premium NAD+ treatments.
-              Most sessions take 30-60 minutes and are administered by licensed nurses under physician supervision.
+              Most sessions take 30–60 minutes and are administered by licensed nurses under physician supervision.
             </p>
           </div>
+
           <div>
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-5">
+            {/* Quick facts card */}
+            <div style={{
+              background: '#fff',
+              border: '1px solid #E7E3DC',
+              borderRadius: '14px',
+              padding: '1.5rem',
+              marginBottom: '1.25rem',
+            }}>
+              <div style={{
+                fontFamily: "'DM Serif Display', Georgia, serif",
+                fontSize: '1rem',
+                color: '#1A3829',
+                marginBottom: '1rem',
+                fontWeight: 400,
+              }}>
+                {city.name} at a Glance
+              </div>
               {[
                 ['City', `${city.name}, ${city.state}`],
                 ['County', city.county],
                 ['Population', city.population],
                 ['Known As', city.tagline],
                 ['ZIP Codes', city.zipCodes.join(', ')],
-                ['Avg. Price', '$100 – $350'],
+                ['Avg. IV Price', '$100 – $350'],
               ].map(([label, val]) => (
-                <div key={label} className="flex justify-between py-2.5 border-b border-slate-200 last:border-0 text-sm">
-                  <span className="text-iv-gray">{label}</span>
-                  <span className="font-bold text-iv-navy text-right">{val}</span>
+                <div key={label} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  padding: '9px 0',
+                  borderBottom: '1px solid #F0EDE8',
+                  fontSize: '0.84rem',
+                  gap: '12px',
+                }}>
+                  <span style={{ color: '#78716C', flexShrink: 0 }}>{label}</span>
+                  <span style={{ fontWeight: 700, color: '#1C1917', textAlign: 'right' }}>{val}</span>
                 </div>
               ))}
             </div>
@@ -207,25 +304,44 @@ export default function CityPage({ params }) {
 
         {/* ── FAQ ── */}
         <section className="mt-14">
-          <div className="font-mono text-[0.72rem] text-iv-teal uppercase tracking-widest mb-1.5">FAQ</div>
-          <h2 className="text-xl font-extrabold text-iv-navy mb-2.5">Frequently Asked Questions About IV Therapy in {city.name}</h2>
-          <p className="text-iv-gray max-w-[680px] mb-7">Everything you need to know before booking your session.</p>
+          <SectionHead
+            label="FAQ"
+            title={`Questions About IV Therapy in ${city.name}`}
+          />
+          <p style={{ color: '#78716C', maxWidth: '660px', marginBottom: '2rem', fontSize: '0.92rem', lineHeight: 1.65, marginTop: '-0.75rem' }}>
+            Everything you need to know before booking your session.
+          </p>
           <FaqAccordion faqs={cityFaqs} />
         </section>
 
-        {/* Ad: Bottom */}
         <div className="mt-12"><AdZone slot="bottomLeaderboard" format="leaderboard" /></div>
 
         {/* ── NEARBY CITIES ── */}
         <section className="mt-12">
-          <div className="font-mono text-[0.72rem] text-iv-teal uppercase tracking-widest mb-1.5">EXPLORE NEARBY</div>
-          <h2 className="text-lg font-extrabold text-iv-navy mb-4">IV Therapy in Other North Atlanta Cities</h2>
-          <div className="flex flex-wrap gap-2.5">
+          <h3 style={{
+            fontFamily: "'DM Serif Display', Georgia, serif",
+            fontSize: '1.2rem',
+            color: '#1A3829',
+            fontWeight: 400,
+            marginBottom: '1rem',
+          }}>
+            IV Therapy in Other North Atlanta Cities
+          </h3>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
             {nearbyCities.map(c => (
               <Link
                 key={c.slug}
                 href={`/${c.slug}`}
-                className="nearby-btn px-5 py-2.5 bg-white border border-slate-200 rounded-lg text-sm font-semibold text-iv-navy no-underline"
+                className="nearby-btn no-underline"
+                style={{
+                  padding: '8px 18px',
+                  background: '#fff',
+                  border: '1px solid #E7E3DC',
+                  borderRadius: '9px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  color: '#1A3829',
+                }}
               >
                 {c.name} →
               </Link>
@@ -235,10 +351,42 @@ export default function CityPage({ params }) {
       </div>
 
       {/* ── CTA BANNER ── */}
-      <section className="bg-gradient-to-r from-iv-teal to-iv-teal-dark py-12 px-6 text-center text-white mt-12">
-        <h2 className="text-2xl font-extrabold mb-2.5">Own an IV Therapy Clinic in {city.name}?</h2>
-        <p className="opacity-85 max-w-[500px] mx-auto mb-6">Get listed on IV Ranker and reach thousands searching for IV therapy.</p>
-        <Link href="/list-your-business" className="inline-block bg-white text-iv-teal-dark px-8 py-3 rounded-xl font-bold no-underline hover:shadow-lg transition-shadow">
+      <section style={{
+        background: 'linear-gradient(135deg, #1A3829 0%, #2A5A3F 100%)',
+        padding: '4rem 1.5rem',
+        textAlign: 'center',
+        marginTop: '3rem',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          position: 'absolute', top: '-40px', left: '50%', transform: 'translateX(-50%)',
+          width: '500px', height: '200px',
+          background: 'radial-gradient(ellipse, rgba(180,83,9,0.1) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }} />
+        <h2 style={{
+          fontFamily: "'DM Serif Display', Georgia, serif",
+          fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+          color: '#fff',
+          fontWeight: 400,
+          marginBottom: '0.75rem',
+        }}>
+          Own an IV Therapy Clinic in {city.name}?
+        </h2>
+        <p style={{ color: 'rgba(255,255,255,0.65)', maxWidth: '480px', margin: '0 auto 2rem', lineHeight: 1.65, fontSize: '0.95rem' }}>
+          Get listed on IV Ranker and reach thousands of people searching for IV therapy in {city.name}.
+        </p>
+        <Link href="/list-your-business" style={{
+          display: 'inline-block',
+          background: '#fff',
+          color: '#1A3829',
+          padding: '12px 32px',
+          borderRadius: '10px',
+          fontWeight: 700,
+          textDecoration: 'none',
+          fontSize: '0.9rem',
+        }}>
           List Your Business — Free
         </Link>
       </section>

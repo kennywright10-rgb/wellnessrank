@@ -6,23 +6,73 @@ export default function FaqAccordion({ faqs }) {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <div className="max-w-[780px]">
-      {faqs.map((f, i) => (
-        <div key={i} className={`faq-item border-b border-slate-200 py-4 ${openIndex === i ? 'active' : ''}`}>
-          <button
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            className="w-full flex justify-between items-center gap-3 text-left bg-transparent border-none cursor-pointer p-0"
+    <div style={{ maxWidth: '760px' }}>
+      {faqs.map((f, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <div
+            key={i}
+            className={`faq-item ${isOpen ? 'active' : ''}`}
+            style={{ borderBottom: '1px solid #EDE9E3' }}
           >
-            <span className="font-bold text-iv-navy text-base">{f.q}</span>
-            <span className="font-mono text-iv-teal text-xl flex-shrink-0">
-              {openIndex === i ? '−' : '+'}
-            </span>
-          </button>
-          <div className="faq-answer">
-            <p className="text-sm text-iv-gray leading-relaxed">{f.a}</p>
+            <button
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '16px',
+                textAlign: 'left',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '1.1rem 0',
+              }}
+            >
+              <span style={{
+                fontWeight: 600,
+                fontSize: '0.94rem',
+                color: isOpen ? '#1A3829' : '#1C1917',
+                lineHeight: 1.45,
+                transition: 'color 0.2s',
+              }}>
+                {f.q}
+              </span>
+
+              {/* Clean icon pill */}
+              <span style={{
+                width: '26px',
+                height: '26px',
+                borderRadius: '50%',
+                background: isOpen ? '#D6EDE3' : '#F5F1EB',
+                color: isOpen ? '#1A3829' : '#A8A29E',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.1rem',
+                lineHeight: 1,
+                flexShrink: 0,
+                transition: 'background 0.2s, color 0.2s',
+              }}>
+                {isOpen ? '−' : '+'}
+              </span>
+            </button>
+
+            <div className="faq-answer">
+              <p style={{
+                fontSize: '0.88rem',
+                color: '#78716C',
+                lineHeight: 1.72,
+                paddingBottom: '1rem',
+                margin: 0,
+              }}>
+                {f.a}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

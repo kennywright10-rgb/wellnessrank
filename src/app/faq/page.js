@@ -29,15 +29,22 @@ export default function FaqPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
-      <header className="bg-gradient-to-br from-iv-navy via-slate-800 to-iv-teal-dark py-16 px-6 text-white">
+      <header style={{ background: 'linear-gradient(135deg, #1A3829 0%, #1F4A34 55%, #2A5A3F 100%)', padding: '3.5rem 1.5rem', color: '#fff' }}>
         <div className="max-w-[1200px] mx-auto">
-          <div className="text-sm text-white/45 mb-3">
-            <Link href="/" className="text-white/60 hover:text-white/90 no-underline">Home</Link>
-            {' → '}FAQ
+          <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)', marginBottom: '1rem' }}>
+            <Link href="/" style={{ color: 'rgba(255,255,255,0.55)', textDecoration: 'none' }}>Home</Link>
+            <span style={{ margin: '0 6px', opacity: 0.3 }}>›</span>FAQ
           </div>
-          <div className="font-mono text-[0.72rem] text-teal-300 uppercase tracking-[3px] mb-3">FREQUENTLY ASKED QUESTIONS</div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">IV Therapy FAQ</h1>
-          <p className="text-white/60 max-w-[560px] leading-relaxed">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
+            <span style={{ display: 'inline-block', width: '16px', height: '2px', background: '#6ECA9B', borderRadius: '2px' }} />
+            <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#6ECA9B' }}>
+              Frequently Asked Questions
+            </span>
+          </div>
+          <h1 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: '0.75rem', color: '#fff' }}>
+            IV Therapy FAQ
+          </h1>
+          <p style={{ color: 'rgba(255,255,255,0.58)', maxWidth: '520px', lineHeight: 1.65, fontSize: '0.95rem' }}>
             Answers to {totalQuestions}+ of the most common questions about IV therapy — from costs and safety to treatments and finding providers in North Atlanta.
           </p>
         </div>
@@ -84,16 +91,16 @@ export default function FaqPage() {
         <AdZone slot="bottomLeaderboard" format="leaderboard" className="mt-8 mb-10" />
 
         {/* CTA */}
-        <div className="bg-gradient-to-r from-iv-teal to-iv-teal-dark rounded-xl p-8 text-white text-center">
-          <h2 className="text-xl font-extrabold mb-2">Still Have Questions?</h2>
-          <p className="text-white/80 mb-5 text-sm max-w-[480px] mx-auto">
-            Browse our provider directory to find a clinic near you. Most offer free consultations where you can ask questions specific to your health needs.
+        <div style={{ background: 'linear-gradient(135deg, #1A3829, #2A5A3F)', borderRadius: '14px', padding: '2.5rem 2rem', textAlign: 'center', color: '#fff' }}>
+          <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: '1.6rem', fontWeight: 400, marginBottom: '0.5rem' }}>Still Have Questions?</h2>
+          <p style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '1.5rem', fontSize: '0.9rem', maxWidth: '460px', margin: '0 auto 1.5rem', lineHeight: 1.65 }}>
+            Browse our provider directory to find a clinic near you. Most offer free consultations.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
-            <Link href="/alpharetta" className="inline-block bg-white text-iv-teal-dark px-6 py-2.5 rounded-lg font-bold text-sm no-underline hover:shadow-lg transition-shadow">
+            <Link href="/alpharetta" style={{ display: 'inline-block', background: '#fff', color: '#1A3829', padding: '10px 24px', borderRadius: '9px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none' }}>
               Find Providers →
             </Link>
-            <Link href="/blog" className="inline-block bg-white/15 text-white border border-white/30 px-6 py-2.5 rounded-lg font-bold text-sm no-underline hover:bg-white/25 transition-colors">
+            <Link href="/blog" style={{ display: 'inline-block', background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '10px 24px', borderRadius: '9px', fontWeight: 700, fontSize: '0.86rem', textDecoration: 'none' }}>
               Read Our Blog
             </Link>
           </div>
