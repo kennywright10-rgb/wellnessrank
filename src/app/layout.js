@@ -70,10 +70,8 @@ export default function RootLayout({ children }) {
                 <Link
                   key={c.slug}
                   href={`/${c.slug}`}
-                  className="hidden md:inline-block px-3 py-1.5 text-sm font-medium no-underline rounded-lg transition-colors"
+                  className="hidden md:inline-block px-3 py-1.5 text-sm font-medium no-underline rounded-lg transition-colors hover:bg-[#F0EDE8] hover:text-[#1A3829]"
                   style={{ color: '#78716C' }}
-                  onMouseEnter={e => { e.currentTarget.style.color = '#1A3829'; e.currentTarget.style.background = '#F0EDE8'; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = '#78716C'; e.currentTarget.style.background = 'transparent'; }}
                 >
                   {c.name}
                 </Link>
