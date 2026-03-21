@@ -35,13 +35,22 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <header
-        style={{
-          background: 'linear-gradient(135deg, #1A3829 0%, #1F4A34 55%, #2A5A3F 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        style={{ position: 'relative', overflow: 'hidden' }}
         className="py-28 px-6 text-white text-center"
       >
+        {/* Background photo */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1800&h=700&fit=crop&auto=format&q=75"
+          alt=""
+          aria-hidden="true"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        {/* Forest overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(135deg, rgba(26,56,41,0.93) 0%, rgba(31,74,52,0.88) 55%, rgba(42,90,63,0.84) 100%)',
+        }} />
         {/* Warm amber radial glow at bottom */}
         <div style={{
           position: 'absolute', bottom: '-80px', left: '50%', transform: 'translateX(-50%)',
@@ -165,36 +174,68 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {cities.map(c => {
+            {cities.map((c, idx) => {
               const count = providers.filter(p => p.city === c.slug).length;
+              // Rotate through a few warm wellness images for city cards
+              const cityImages = [
+                'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&h=220&fit=crop&auto=format&q=75',
+                'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?w=600&h=220&fit=crop&auto=format&q=75',
+                'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=220&fit=crop&auto=format&q=75',
+                'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=220&fit=crop&auto=format&q=75',
+                'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=220&fit=crop&auto=format&q=75',
+                'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&h=220&fit=crop&auto=format&q=75',
+              ];
+              const img = cityImages[idx % cityImages.length];
               return (
                 <Link
                   key={c.slug}
                   href={`/${c.slug}`}
-                  className="city-card no-underline block rounded-xl p-6"
-                  style={{ background: '#fff', border: '1px solid #E7E3DC' }}
+                  className="no-underline block rounded-xl overflow-hidden"
+                  style={{ border: '1px solid #E7E3DC', transition: 'transform 0.15s, box-shadow 0.2s' }}
                 >
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 style={{ fontSize: '0.97rem', fontWeight: 700, color: '#1C1917', marginBottom: '3px', margin: 0 }}>
-                        {c.name}, {c.state}
-                      </h3>
-                      <div style={{ fontSize: '0.73rem', color: '#A8A29E', marginTop: '3px' }}>{c.county} · Pop. {c.population}</div>
-                    </div>
-                    <span style={{
-                      fontWeight: 700,
-                      fontSize: '0.77rem',
-                      color: count > 0 ? '#1A3829' : '#A8A29E',
-                      background: count > 0 ? '#D6EDE3' : '#F5F1EB',
-                      padding: '3px 9px',
-                      borderRadius: '6px',
-                      flexShrink: 0,
-                      marginLeft: '10px',
+                  {/* Image top */}
+                  <div style={{ position: 'relative', height: '140px' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={img}
+                      alt=""
+                      aria-hidden="true"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      loading="lazy"
+                    />
+                    <div style={{
+                      position: 'absolute', inset: 0,
+                      background: 'linear-gradient(to bottom, rgba(26,56,41,0.1), rgba(26,56,41,0.55))',
+                    }} />
+                    <div style={{
+                      position: 'absolute', bottom: '10px', left: '12px', right: '12px',
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
                     }}>
-                      {count} {count === 1 ? 'listing' : 'listings'}
-                    </span>
+                      <span style={{
+                        fontFamily: "'DM Serif Display', Georgia, serif",
+                        color: '#fff', fontSize: '1.05rem', fontWeight: 400,
+                        textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                      }}>
+                        {c.name}
+                      </span>
+                      <span style={{
+                        fontSize: '0.7rem', fontWeight: 700,
+                        color: count > 0 ? '#1A3829' : '#78716C',
+                        background: count > 0 ? 'rgba(214,237,227,0.95)' : 'rgba(245,241,235,0.9)',
+                        padding: '3px 9px', borderRadius: '999px',
+                        backdropFilter: 'blur(4px)',
+                      }}>
+                        {count} {count === 1 ? 'listing' : 'listings'}
+                      </span>
+                    </div>
                   </div>
-                  <p style={{ fontSize: '0.82rem', color: '#78716C', lineHeight: 1.55, margin: 0 }}>{c.tagline}</p>
+                  {/* Text below */}
+                  <div style={{ padding: '0.85rem 1rem', background: '#fff' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#A8A29E', marginBottom: '3px' }}>
+                      {c.county}
+                    </div>
+                    <p style={{ fontSize: '0.8rem', color: '#78716C', lineHeight: 1.5, margin: 0 }}>{c.tagline}</p>
+                  </div>
                 </Link>
               );
             })}

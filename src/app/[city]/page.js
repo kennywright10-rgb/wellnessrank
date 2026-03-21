@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { cities, getCityBySlug, getProvidersByCity, getCityFaqs, ivTypes } from '@/data/sites';
-import ProviderCard from '@/components/ProviderCard';
+import ProviderGrid from '@/components/ProviderGrid';
 import AdZone from '@/components/AdZone';
 import FaqAccordion from '@/components/FaqAccordion';
 
@@ -124,18 +124,30 @@ export default function CityPage({ params }) {
       {/* ── HERO ── */}
       <header
         style={{
-          background: 'linear-gradient(135deg, #1A3829 0%, #1F4A34 55%, #2A5A3F 100%)',
           position: 'relative',
           overflow: 'hidden',
           padding: '4rem 1.5rem 3.5rem',
           color: '#fff',
         }}
       >
+        {/* Background photo */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600&h=600&fit=crop&auto=format&q=80"
+          alt=""
+          aria-hidden="true"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        {/* Dark forest overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(135deg, rgba(26,56,41,0.92) 0%, rgba(31,74,52,0.88) 55%, rgba(42,90,63,0.82) 100%)',
+        }} />
         {/* Amber glow */}
         <div style={{
           position: 'absolute', bottom: '-60px', right: '10%',
           width: '400px', height: '300px',
-          background: 'radial-gradient(ellipse, rgba(180,83,9,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse, rgba(180,83,9,0.15) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
 
@@ -208,14 +220,7 @@ export default function CityPage({ params }) {
           <p style={{ color: '#78716C', maxWidth: '660px', marginBottom: '2rem', fontSize: '0.92rem', lineHeight: 1.65, marginTop: '-0.75rem' }}>
             Verified providers ranked by rating, services, and patient reviews. Sponsored listings appear first.
           </p>
-          <div className="flex flex-col gap-4">
-            {cityProviders.map((p, i) => (
-              <div key={p.id}>
-                <ProviderCard provider={p} rank={i + 1} />
-                {i === 2 && <div className="mt-4"><AdZone slot="midListing" format="in-article" /></div>}
-              </div>
-            ))}
-          </div>
+          <ProviderGrid providers={cityProviders} cityName={city.name} />
         </section>
 
         <div className="my-12"><AdZone slot="midPage" format="horizontal" /></div>
