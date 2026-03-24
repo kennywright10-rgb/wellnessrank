@@ -17,6 +17,9 @@ export const metadata = {
     index: true,
     follow: true,
   },
+    verification: {
+          google: '42BjNFSfcnMkszqjZ_gmBZj3Ux1SNsTwH26nzdTVPlM',
+    },
 };
 
 // Leaf/wellness SVG mark for logo
